@@ -1,10 +1,10 @@
 <?php
 include 'HitChecker.php';
 
+date_default_timezone_set('UTC');
 $start_time = microtime(true);
 
 session_start();
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if($_SESSION['table'] == null) {
         $_SESSION['table'] = '';
@@ -21,8 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$x = $_POST["x"];
 		$y = $_POST["y"];
 		$r = $_POST["r"];
+        $timezone = $_POST["timezone"];
+        $curTime = date("H:i:s", time() - $timezone * 60);
 		$checker = new HitChecker;
-		//exit("$x $y $r");
 		if (!$checker->validate($x, $y, $r)) {
 			exit("Некоректные данные на сервере");
 		}
@@ -37,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				<th>$x</th>
 				<th>$y</th>
 				<th>$r</th>
-				<th>GOVNO</th>
-				<th>$result_time</th>
+				<th>$curTime</th>
+				<th>$result_time ms</th>
 				<th>$hit</th>
 			</tr>
 		";

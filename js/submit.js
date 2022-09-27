@@ -16,6 +16,7 @@ function sendForm() {
 				'x': x.item(0).value,
 				'y': y.value,
 				'r': r.value,
+                'timezone': new Date().getTimezoneOffset(),
 				'clean': 'false'
 			},
 			success: function(data) {
